@@ -1,0 +1,77 @@
+<app-http-loading-spinner filterBy="lodgings"></app-http-loading-spinner>
+<ng-container *ngIf="$touristSpot | async as touristSpot">
+    <header class="d-flex align-items-center">
+        <div class="overlay"></div>
+        <img src="{{charArrayToPng(touristSpot.imageData)}}">
+        <div class="container h-100">
+            <div class="row h-100">
+                <div class="col text-white text-center">
+                    <h1 class="display-1 text-center text-warning">
+                        {{touristSpot.name}}
+                    </h1>
+                    <p class="d-none d-md-block small">{{touristSpot.description}}</p>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="container-fluid d-flex justify-content-center p-2 shadow-sm">
+        <div class="row no-gutters">
+            <div *ngFor="let cat of touristSpot.categories" class="col-auto">
+                <span class="badge badge-inline badge-third p">
+                    <fa-icon  [icon]="['fas', cat.faIconName]"></fa-icon>
+                    {{cat.name}}
+                </span>
+            </div>
+        </div>
+    </div>
+
+    <div class="p-3 pb-2 bg-secondary inner-shadow">
+        <div class="container-fluid d-flex justify-content-center">
+            <h1 class="display-3 text-default ">
+                Buscar Hospedajes en {{touristSpot.name}}
+            </h1>
+        </div>
+        <div class="container-fluid d-flex justify-content-center">
+            <app-lodging-search-filter (searchChange)="searchLodgings($event)" class="w-100"></app-lodging-search-filter>
+        </div>
+    </div>
+
+</ng-container>
+<section class="section section-lg pt-lg-0 mt-5">
+    <div class="container-fluid pl-xl pr-xl" *ngFor="let lodging of lodgings, let i = index">
+        <app-lodging-card style="max-height: 100px" [bookingDetails]="search" [lodging]="lodging" [index]="i"></app-lodging-card>
+    </div>
+    <div *ngIf="(lodgings.length === 0)" class="d-flex justify-content-center ">
+        <div *ngIf="!hasSearched" class="row">
+            <div class="col text-center slide-top">
+                <h1 class="display-2">
+                    <fa-icon class="text-third" [icon]="['fas', 'arrow-up']"></fa-icon>
+                </h1>
+            </div>
+            <div class="w-100"></div>
+            <div class="col">
+                <h3 class="align-middle text-center text-third">
+                    Ingrese los datos deseados para iniciar con la búsqueda de hospedajes
+                </h3>
+            </div>
+        </div>
+        <div *ngIf="hasSearched" class="row">
+            <div class="col">
+                <h3 class="align-middle text-center text-third">
+                    Lo sentimos, no se encontraron hospedajes para tu búsqueda.
+                </h3>
+            </div>
+        </div>
+    </div>
+
+    <div *ngIf="lodgings.length > 0" class="d-flex justify-content-center">
+        <a *ngIf="!lastPage" (click)="loadPage()" class="btn btn-link text-third btn-lg">
+            Cargar más resultados
+        </a>
+        <a *ngIf="lastPage" (click)="loadPage()" class="btn btn-link text-third btn-lg disabled">
+            No hay más hospedajes para estos términos de búsqueda
+        </a>
+    </div>
+
+</section>

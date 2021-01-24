@@ -1,0 +1,46 @@
+
+<form role="form" class="p-5 shadow" [formGroup]="lodgingForm" (ngSubmit)="onSubmit(lodgingForm.value)">
+    <h6 class="heading-small text-muted mb-4">Editar hospedaje</h6>
+    <div class="row">
+        <div class="col-lg-6">
+            <select (change)="selectRegion($event)" type="text" id="input-region" class="form-control form-control-alternative">
+                <option hidden disabled [value]="" selected>Ingrese region </option>
+                <option *ngFor="let region of (regions$ | async)" [value]="region.id"> {{region.name}} </option>
+            </select>
+        </div>
+    
+        <div class="col-lg-6">
+            <select [(ngModel)]="selectedTouristSpot" formControlName="touristSpot" (ngModelChange)="selectTouristSpot($event)" type="text" id="input-tourisSpot" class="form-control form-control-alternative">
+                <option [ngValue]="undefined || null" hidden disabled selected>Ingrese punto turistico </option>
+                <option *ngFor="let touristSpot of (touristSpots$ | async)" [ngValue]="touristSpot"> {{touristSpot.name}} </option>
+            </select>
+        </div>
+    </div>
+
+    <div class="row mt-4">
+        <div class="col-lg-6">
+            <select [(ngModel)]="selectedLodging" formControlName="lodging" (ngModelChange)="selectLodging($event)" type="text" id="input-lodging" class="form-control form-control-alternative">
+                <option [ngValue]="undefined || null" hidden disabled selected>Ingrese hospedaje </option>
+                <option *ngFor="let lodging of (lodgings$ | async)" [ngValue]="lodging"> {{lodging.address}} </option>
+            </select>
+        </div>
+    
+        <div class="col-lg-6">
+            <div *ngIf="selectedLodging" class="row">
+                <div class="col-lg-6 d-flex">
+                    <div class="align-self-center">
+                        <label formArrayName="isFull" *ngFor="let check of lodgingForm.controls.isFull.controls; let i = index">
+                            <input type="checkbox" [formControlName]="i">{{isFullCheckbox[i].name}}
+                        </label>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <button class="btn btn-primary w-100" type="button" type="submit">Actualizar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="alert alert-success mt-4" role="alert" *ngIf="showSuccess">
+      Hospedaje actualizado correctamente
+    </div>
+</form>

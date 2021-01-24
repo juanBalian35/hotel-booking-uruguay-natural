@@ -1,0 +1,26 @@
+<form role="form" class="p-5 shadow" [formGroup]="adminForm" (ngSubmit)="onSubmit(adminForm.value)">
+    <h6 class="heading-small text-muted mb-4">Borrar administrador</h6>
+    
+    <div class="row mt-4">
+        <div class="col-lg-6">
+            <select [(ngModel)]="selectedAdministrator" formControlName="email" type="text" id="input-lodging" class="form-control form-control-alternative">
+                <option [ngValue]="undefined || null" hidden disabled selected>Ingrese administrador </option>
+                <option *ngFor="let administrator of (administrators$ | async)" [ngValue]="administrator"> {{administrator.email}} </option>
+            </select>
+            <div class="error-wrapper">
+                <div class="text-danger" *ngIf="this.adminForm.controls.email.invalid && showErrors">
+                  <div *ngIf="this.adminForm.controls.email.errors?.required" class="validation-error">Campo requerido</div>
+                  <div *ngFor="let error of this.adminForm.controls.email.errors?.frontErrors" class="validation-error">
+                    {{error}}
+                  </div>
+                </div>
+              </div>  
+        </div>
+        <div class="col-lg-6" *ngIf="selectedAdministrator">
+            <button class="btn btn-primary px-4" type="button" type="submit">Borrar</button>
+        </div>
+    </div>
+    <div class="alert alert-success mt-4" role="alert" *ngIf="showSuccess">
+      Administrador borrado correctamente
+    </div>
+</form>

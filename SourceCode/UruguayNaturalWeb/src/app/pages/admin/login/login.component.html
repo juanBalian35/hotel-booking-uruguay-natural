@@ -1,0 +1,45 @@
+<div class="header py-7 bg-primary py-lg-8 vh-100">
+  <div class="container mt--8 pb-5">
+    <div class="row justify-content-center">
+      <div class="col-lg-5 col-md-7 mt-6">
+        <div class="card bg-secondary shadow border-0 my-6">
+          <div class="card-header bg-transparent pb-5">
+            <div class="text-muted text-center mt-2 mb-3"><h3>Iniciar sesión</h3></div>
+            <form role="form" [formGroup]="logInForm" (ngSubmit)="onSubmit()">
+              <div class="extraErrors" *ngIf="extraErrors.length > 0">
+                <div class="alert alert-danger" role="alert">
+                  <ng-container *ngFor="let error of extraErrors">
+                    {{error}}
+                  </ng-container>
+                </div>
+              </div>
+              <div class="form-group my-3"  [ngClass]="{'has-danger': this.logInForm.controls.email.invalid && showErrors}">
+                <div class="input-group input-group">
+                  <input formControlName="email" class="form-control" placeholder="Email" type="email" [ngClass]="{'is-invalid': this.logInForm.controls.email.invalid && showErrors}">
+                </div>
+                <div class="error-wrapper">
+                  <div class="text-danger" *ngIf="this.logInForm.controls.email.invalid && (this.logInForm.controls.email.dirty || this.logInForm.controls.email.touched) && showErrors">
+                    <div *ngIf="this.logInForm.controls.email.errors?.required" class="validation-error">Campo requerido</div>
+                    <div *ngIf="this.logInForm.controls.email.errors?.email" class="validation-error">Email inválido</div>
+                  </div>
+                </div>  
+              </div>
+              <div class="form-group">
+                <div class="input-group input-group">
+                  <input formControlName="password" class="form-control" placeholder="Contraseña" type="password">
+                </div>
+                <div class="error-wrapper">
+                  <div *ngIf="this.logInForm.controls.password.invalid && (this.logInForm.controls.password.dirty || this.logInForm.controls.password.touched)">
+                    <div *ngIf="this.logInForm.controls.password.errors?.required" class="validation-error">Campo requerido</div>
+                  </div>
+                </div> 
+              </div>
+              <div class="text-center">
+                <button type="button" class="btn btn-primary mt-4" type="submit">Iniciar sesión</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

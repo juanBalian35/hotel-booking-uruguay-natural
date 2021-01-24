@@ -1,0 +1,10 @@
+<main>
+  <div class="container-fluid p-0">
+    <div class="row align-items-center no-gutters flex-md-row">
+      <div class="col-md"  *ngFor="let reg of regions;" [routerLink]="['/region/'+ reg.id]" style="cursor: pointer;">
+        <app-region-col region="{{reg.name}}" video="{{reg.videoPath}}" map="{{reg.mapTransparent}}">
+        </app-region-col>
+      </div>
+    </div>
+  </div>
+</main>

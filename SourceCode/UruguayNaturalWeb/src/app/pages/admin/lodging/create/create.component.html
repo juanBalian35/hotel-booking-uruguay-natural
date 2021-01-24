@@ -1,0 +1,157 @@
+<form role="form" class="p-5 shadow" [formGroup]="lodgingForm" (ngSubmit)="onSubmit()">
+<h6 class="heading-small text-muted mb-4">Crear hospedaje</h6>
+<div class="pl-lg-4">
+    <div class="row">
+    <div class="col-lg-6">
+        <div class="form-group">
+        <label class="form-control-label" for="input-name">Nombre *</label>
+        <input type="text" id="input-name" class="form-control form-control-alternative" formControlName="name" placeholder="Nombre">
+        <div class="error-wrapper">
+            <div class="text-danger" *ngIf="this.lodgingForm.controls.name.invalid && showErrors">
+              <div *ngIf="this.lodgingForm.controls.name.errors?.required" class="validation-error">Campo requerido</div>
+              <div *ngIf="this.lodgingForm.controls.name.errors?.required" class="validation-error"></div>
+            </div>
+          </div>  
+        </div>
+    </div>
+    <div class="col-lg-6">
+        <div class="form-group">
+        <label class="form-control-label" for="input-address">Direccion *</label>
+        <input type="email" id="input-address" class="form-control form-control-alternative" formControlName="address" placeholder="Direccion">
+        <div class="error-wrapper">
+          <div class="text-danger" *ngIf="this.lodgingForm.controls.address.invalid && showErrors">
+            <div *ngIf="this.lodgingForm.controls.address.errors?.required" class="validation-error">Campo requerido</div>
+            <div *ngFor="let error of this.lodgingForm.controls.address.errors?.apiErrors" class="validation-error">
+              {{error}}
+            </div>
+          </div>
+        </div> 
+        </div>
+    </div>
+    <div class="col-lg-3">
+        <div class="form-group">
+        <label class="form-control-label" for="input-price">Precio por noche *</label>
+        <input type="number" id="input-price" class="form-control form-control-alternative" formControlName="pricePerNight" placeholder="Precio por noche">
+        <div class="error-wrapper">
+          <div class="text-danger" *ngIf="this.lodgingForm.controls.pricePerNight.invalid && showErrors">
+            <div *ngIf="this.lodgingForm.controls.pricePerNight.errors?.required" class="validation-error">Campo requerido</div>
+            <div *ngFor="let error of this.lodgingForm.controls.pricePerNight.errors?.apiErrors" class="validation-error">
+              {{error}}
+            </div>
+          </div>
+        </div>  
+        </div>
+    </div>
+    <div class="col-lg-3">
+        <div class="form-group">
+        <label class="form-control-label" for="input-country">Estrellas *</label>
+        <input type="number" id="input-postal-code" class="form-control form-control-alternative" formControlName="rating" placeholder="Estrellas">
+        <div class="error-wrapper">
+            <div class="text-danger" *ngIf="this.lodgingForm.controls.rating.invalid && showErrors">
+              <div *ngIf="this.lodgingForm.controls.rating.errors?.required" class="validation-error">Campo requerido</div>
+              <div *ngFor="let error of this.lodgingForm.controls.rating.errors?.apiErrors" class="validation-error">
+                {{error}}
+              </div>
+            </div>
+          </div> 
+        </div>
+    </div>
+    <div class="col-lg-6">
+        <div class="form-group">
+        <label class="form-control-label" for="input-phone">Telefono *</label>
+        <input type="text" id="input-phone" class="form-control form-control-alternative" formControlName="phone" placeholder="Telefono">
+        <div class="error-wrapper">
+            <div class="text-danger" *ngIf="this.lodgingForm.controls.phone.invalid && showErrors">
+              <div *ngIf="this.lodgingForm.controls.phone.errors?.required" class="validation-error">Campo requerido</div>
+              <div *ngIf="this.lodgingForm.controls.phone.errors?.required" class="validation-error"></div>
+            </div>
+          </div> 
+        </div>
+    </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-6">
+            <div class="form-group">
+                <label class="form-control-label" for="input-first-name">Region  *</label>
+                <select (change)="regionSelected($event)" type="text" id="input-tourist-spot" class="form-control form-control-alternative" placeholder="First name"> 
+                    <option hidden disabled [value]="" selected>Ingrese region</option>
+                    <option *ngFor="let region of (regions$ | async)" [value]="region.id"> {{region.name}} </option>
+                </select>
+                <div class="error-wrapper">
+                  <div class="text-danger" *ngIf="this.lodgingForm.controls.region.invalid && showErrors">
+                    <div *ngIf="this.lodgingForm.controls.region.errors?.required" class="validation-error">Campo requerido</div>
+                    <div *ngIf="this.lodgingForm.controls.region.errors?.required" class="validation-error"></div>
+                  </div>
+                </div> 
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <div class="form-group">
+            <label class="form-control-label" for="input-first-name">Punto turistico *</label>
+            <select (change)="touristSpotSelected($event)" type="text" id="input-tourist-spot" class="form-control form-control-alternative" placeholder="First name">
+                <option hidden disabled [value]="" selected>Ingrese punto turistico</option>
+                <option *ngFor="let touristSpot of (touristSpots$ | async)" [value]="touristSpot.id"> {{touristSpot.name}} </option>
+            </select>
+            <div class="error-wrapper">
+              <div class="text-danger" *ngIf="this.lodgingForm.controls.touristSpot.invalid && showErrors">
+                <div *ngIf="this.lodgingForm.controls.touristSpot.errors?.required" class="validation-error">Campo requerido</div>
+                <div *ngIf="this.lodgingForm.controls.touristSpot.errors?.required" class="validation-error"></div>
+              </div>
+            </div> 
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="form-group">
+            <label class="form-control-label" for="input-first-name">Mensaje de confirmacion *</label>
+            <textarea rows="2" class="form-control form-control-alternative" formControlName="confirmationMessage" placeholder="Mensaje de confirmacion"></textarea>
+            <div class="error-wrapper">
+                <div class="text-danger" *ngIf="this.lodgingForm.controls.confirmationMessage.invalid && showErrors">
+                  <div *ngIf="this.lodgingForm.controls.confirmationMessage.errors?.required" class="validation-error">Campo requerido</div>
+                  <div *ngIf="this.lodgingForm.controls.confirmationMessage.errors?.required" class="validation-error"></div>
+                </div>
+              </div> 
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="form-group">
+            <label class="form-control-label" for="input-first-name">Descripcion *</label>
+            <textarea rows="4" class="form-control form-control-alternative" formControlName="description" placeholder="Descripcion"></textarea>
+            <div class="error-wrapper">
+              <div class="text-danger" *ngIf="this.lodgingForm.controls.description.invalid && showErrors">
+                <div *ngIf="this.lodgingForm.controls.description.errors?.required" class="validation-error">Campo requerido</div>
+                <div *ngFor="let error of this.lodgingForm.controls.description.errors?.apiErrors" class="validation-error">
+                  {{error}}
+                </div>
+              </div>
+            </div>  
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-6">
+            <label class="form-control-label" for="input-first-name">Imagen *</label>
+            <div class="input-group mb-0">
+                <div class="form-group mb-0">
+                  <input type="file" class="form-control form-control-alternative" id="inputGroupFile02" (change)="handleFileInput($event.target.files)" multiple>
+                  <label id="inputFile-label" class="custom-file-label" for="inputGroupFile02">Elegir imagen</label>
+                </div>
+              </div>
+              <div class="error-wrapper">
+                <div class="text-danger" *ngIf="this.filesToUpload.length == 0 && showErrors">
+                  <div class="validation-error">Campo requerido</div>
+                </div>
+              </div>
+        </div>
+    </div>
+    <div class="alert alert-success mt-4" role="alert" *ngIf="showSuccess">
+      Hospedaje creado correctamente
+    </div>
+    <div class="row justify-content-center mt-4">
+        <button class="btn btn-primary px-4" type="button" type="submit">Crear hospedaje</button>
+    </div>
+</div>
+</form>

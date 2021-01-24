@@ -1,0 +1,27 @@
+.clickable{
+    cursor: pointer;
+}
+.star {
+    position: relative;
+    display: inline-block;
+    color: #d3d3d3;
+}
+.full {
+    color: #FFC107;
+}
+.half {
+    position: absolute;
+    display: inline-block;
+    overflow: hidden;
+    color: #FFC107;
+}
+
+.full-heart {
+    color: #f80031;
+}
+.half-heart {
+    position: absolute;
+    display: inline-block;
+    overflow: hidden;
+    color: #f80031;
+}

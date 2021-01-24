@@ -1,0 +1,19 @@
+<nav class="navbar navbar-vertical navbar-expand-md navbar-light bg-white" id="sidenav-main">
+  <div class="container-fluid">
+    <div class="collapse navbar-collapse" id="sidenav-collapse-main">
+      <ul class="navbar-nav">
+          <li *ngFor="let menuItem of menuItems" class="{{menuItem.class}} nav-item">
+              <a routerLinkActive="active" [routerLink]="[menuItem.path]" class="nav-link">
+                 {{menuItem.title}}
+              </a>
+          </li>
+      </ul>
+      <hr class="my-3">
+      <ul class="navbar-nav mb-md-3">
+        <li class="nav-item" (click)="logOut()">
+          <a role='button' class="nav-link"> Cerrar sesión </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>

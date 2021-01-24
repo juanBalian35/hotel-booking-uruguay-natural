@@ -1,0 +1,10 @@
+.card-img-top {
+    width: 100%;
+    height: 12vw;
+    object-fit: cover;
+}
+
+.not-stretched{
+    z-index: 2;
+    position: relative
+}

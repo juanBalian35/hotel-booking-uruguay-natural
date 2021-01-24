@@ -1,0 +1,27 @@
+.list-group-item.active{
+    color: #00528c;
+    background-color: #d6dae2 !important;
+    border: none;
+    border-top-width: 0.0625rem;
+    border-left-width: 0.0625rem;
+}
+
+.list-group-item{
+    width: 140px;
+}
+
+.list-group-item:hover{
+    cursor:pointer;
+}
+
+.container{
+    min-height: 100%;
+}
+
+.mincont{
+    min-height: 98.3vh;
+}
+
+#list-center{
+    width: 200px;
+}

@@ -1,0 +1,56 @@
+<div class="mincont my-0 py-0">
+    <div class="header bg-primary">
+        <div class="container-fluid pl-4 pt-5">
+          <div class="header-body">
+              <h1 class="text-white"> Importaciones en masa </h1>
+          </div>
+        </div>
+    </div>
+    <div class="container py-6">
+      <form role="form" class="p-5 shadow" [formGroup]="importForm" (ngSubmit)="onSubmit()">
+        <h6 class="heading-small text-muted mb-4">Importar hospedajes</h6>
+        <div class="row">
+          <div class="col-lg-6">
+            <label class="form-control-label" for="input-region">Formato de importacion *</label>
+            <select formControlName="format" [(ngModel)]="selectedRegion" type="text" id="input-region" class="form-control form-control-alternative">
+                <option hidden disabled [ngValue]="null || undefined" selected>Ingrese formato </option>
+                <option *ngFor="let format of (formatNames$ | async)" [ngValue]="format"> {{format}} </option>
+            </select>
+            <div class="error-wrapper">
+              <div class="text-danger" *ngIf="this.importForm.controls.format.invalid && showErrors">
+                  <div *ngIf="this.importForm.controls.format.errors?.required" class="validation-error">Campo requerido</div>
+                  <div *ngFor="let error of this.importForm.controls.format.errors?.apiErrors" class="validation-error">
+                      {{error}}
+                  </div>
+              </div>
+            </div>  
+          </div>
+          <div class="col-lg-6">
+            <label class="form-control-label" for="input-first-name">Archivo de hospedajes *</label>
+            <div class="input-group mb-0">
+                <div class="form-group mb-0">
+                  <input type="file" class="form-control form-control-alternative" formControlName="file" id="inputGroupFile02" (change)="handleFileInput($event.target.files)">
+                  <label id="inputFile-label" class="custom-file-label" for="inputGroupFile02">Elegir archivo</label>
+                </div>
+              </div>
+              <div class="error-wrapper">
+                <div class="text-danger" *ngIf="!this.selectedFile && showErrors">
+                  <div class="validation-error">Campo requerido</div>
+                </div>
+              </div>
+          </div>
+      </div>
+        <div class="row justify-content-center mt-4">
+            <button class="btn btn-primary px-4" type="button" type="submit">Importar hospedajes</button>
+        </div>
+        <div class="alert alert-success mt-4 col-lg-6 mx-auto" role="alert" *ngIf="showSuccess">
+          Hospedajes importados correctamente
+        </div>
+        <div class="alert alert-danger mt-4 col-lg-6 mx-auto" role="alert" *ngIf="showErrors && extraErrors.length > 0">
+          <div *ngFor="let error of extraErrors">
+            {{error}}
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>

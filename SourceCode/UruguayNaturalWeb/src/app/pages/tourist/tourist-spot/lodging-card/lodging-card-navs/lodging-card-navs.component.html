@@ -1,0 +1,35 @@
+
+<ul ngbNav #nav="ngbNav" [(activeId)]="active" class="nav nav-pills nav-fill custom-tab-content justify-content-center shadow-sm">
+<!--Realizar reserva-->
+    <li [ngbNavItem]="1">
+        <a ngbNavLink><fa-icon [icon]="['fas','concierge-bell']"></fa-icon> Realizar una reserva</a>
+            <ng-template ngbNavContent>
+                <app-booking [lodging]="lodging" [bookingDetails]="bookingDetails"></app-booking>
+            </ng-template>
+    </li>
+    <!-- Imagenes-->
+    <li [ngbNavItem]="2">
+        <a ngbNavLink><fa-icon [icon]="['fas','images']"></fa-icon> Imagenes ({{lodging.images.length}}) </a>
+        <ng-template ngbNavContent>
+          <app-image-gallery [images]="lodging.images"></app-image-gallery>
+        </ng-template>
+    </li>
+<!--Reviews de usuarios-->
+    <li [ngbNavItem]="3">
+        <a ngbNavLink><fa-icon [icon]="['fas','heart']"></fa-icon> Reseñas de usuarios ({{lodging.reviewsQuantity}})</a>
+        <ng-template ngbNavContent>
+           <app-tourist-reviews [lodgingId]="lodging.id"></app-tourist-reviews>
+        </ng-template>
+    </li>
+<!--Realizar review-->
+    <li [ngbNavItem]="4">
+        <a ngbNavLink><fa-icon [icon]="['fas','comment-alt']"></fa-icon> Escribir Reseña</a>
+        <ng-template ngbNavContent>
+            <app-create-review></app-create-review>
+        </ng-template>
+    </li>
+
+</ul>
+
+<div [ngbNavOutlet]="nav" class="mt-5 mb-5 container"></div>
+

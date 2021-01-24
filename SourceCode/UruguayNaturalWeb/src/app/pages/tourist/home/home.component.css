@@ -1,0 +1,17 @@
+.col-md {
+    transition: transform 0.5s;
+
+}
+
+.col-md:hover {
+    -ms-transform: scale(1.08); /* IE 9 */
+    -webkit-transform: scale(1.08); /* Safari */
+    transform: scale(1.08);
+    -ms-transform-origin: center center;
+    -webkit-transform-origin: center center;
+    transform-origin: center center;
+    z-index: 5;
+    -webkit-box-shadow: 0 0 53px 14px rgba(0,0,0,0.68);
+    -moz-box-shadow: 0 0 53px 14px rgba(0,0,0,0.68);
+    box-shadow: 0 0 53px 14px rgba(0,0,0,0.68);
+}

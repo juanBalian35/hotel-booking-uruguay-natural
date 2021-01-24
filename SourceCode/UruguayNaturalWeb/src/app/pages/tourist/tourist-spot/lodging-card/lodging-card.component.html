@@ -1,0 +1,63 @@
+<div class="mt-4 card rounded shadow-sm">
+    <div class="row no-gutters h-100">
+        <div class="col-sm-5 col-md-3 col-lg-2 p-2" style="height: 205px">
+            <a class="stretched-link" data-toggle="collapse" [attr.href]="'#collapseDetailed'+index" aria-expanded="false" [attr.aria-controls]="'collapseDetailed'+index"></a>
+            <img [src]="charArrayToPng(lodging.images[0].imageData)" class="card-img img-cropped shadow-sm" alt="...">
+        </div>
+        <div class="col-sm-7 col-md-9 col-lg-8">
+            <div class="card-body">
+                <a class="stretched-link" data-toggle="collapse" [attr.href]="'#collapseDetailed'+index" aria-expanded="false" [attr.aria-controls]="'collapseDetailed'+index"></a>
+                <div class="row justify-content-between">
+                    <div class="col-auto">
+                        <div class="row align-items-center no-gutters">
+                            <div class="col-auto ">
+                                <h5 class="heading-title m-0 text-primary">{{lodging.name}}</h5>
+                            </div>
+                            <div class="col ml-2">
+                                <ng-template #t let-fill="fill">
+                                    <span class="star" [class.full]="fill === 100">
+                                     <span class="half" [style.width.%]="fill">&#9733;</span>&#9733;
+                                    </span>
+                                </ng-template>
+                                <ngb-rating [readonly]="true" [starTemplate]="t" [rate]="lodging.rating" [max]="5"></ngb-rating>
+                            </div>
+                        </div>
+                        <p class="text-muted">  <fa-icon [icon]="['fas', 'map-marked-alt']"></fa-icon> {{lodging.address}}</p>
+                    </div>
+                    <div class="col-auto" *ngIf="lodging.reviewsQuantity > 0">
+                        <div class="row no-gutters ">
+                            <div class="col-auto">
+                                <span [ngClass]="{'badge-success': (lodging.reviewsAverage > 4 || lodging.reviewsAverage == 4), 'badge-danger': lodging.reviewsAverage < 2, 'badge-warning': ((lodging.reviewsAverage > 2 || lodging.reviewsAverage === 2)  && lodging.reviewsAverage < 4)  }"
+                                      class="m-0 badge-circle big-circle shadow-sm  h3 ">{{ lodging.reviewsAverage | number:'1.1-1'}}</span>
+                            </div>
+                            <div class="ml-2 col-auto d-flex align-items-center">
+                                <p class="text-muted m-0"><small>de {{lodging.reviewsQuantity}} reseñas</small></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <p class="card-text d-none d-md-block">{{lodging.description}}</p>
+            </div>
+        </div>
+        <div class="col-lg-2 bg-secondary p-4 border-left text-right">
+                <div class="row h-100">
+                    <div class="col-12">
+                        <small class="text-muted">Precio por noche</small>
+                        <div class="row justify-content-end no-gutters">
+                            <h6 class="m-0 text-primary text-right">UYU ${{lodging.pricePerNight}}</h6>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <p class="card-text m-0 text-success h6">Precio total</p>
+                        <div class="row no-gutters justify-content-end">
+                            <h4 class="m-0  text-success ">UYU <strong>${{lodging.totalPrice}}</strong></h4>
+                        </div>
+                    </div>
+                    <div class="col-12 align-self-end d-flex justify-content-end">
+                        <button class="btn btn-primary" data-toggle="collapse" [attr.data-target]="'#collapseDetailed'+index" aria-expanded="false" [attr.aria-controls]="'collapseDetailed'+index">Reservar <fa-icon [icon]="['fas', 'angle-right']"></fa-icon></button>
+                    </div>
+                </div>
+        </div>
+    </div>
+<app-lodging-card-navs [bookingDetails]="bookingDetails" [lodging]="lodging" class="collapse" [attr.id]="'collapseDetailed'+index"></app-lodging-card-navs>
+</div>

@@ -1,0 +1,63 @@
+
+
+
+header {
+    position: relative;
+    background-color: black;
+    height: 30vh;
+    min-height: 25rem;
+    width: 100%;
+    overflow: hidden;
+
+}
+
+header video {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    min-width: 100%;
+    min-height: 100%;
+    width: auto;
+    height: auto;
+    z-index: 0;
+    -ms-transform: translateX(-50%) translateY(-50%);
+    -moz-transform: translateX(-50%) translateY(-50%);
+    -webkit-transform: translateX(-50%) translateY(-50%);
+    transform: translateX(-50%) translateY(-50%);
+}
+
+header .container {
+    position: relative;
+    z-index: 2;
+}
+
+header .overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background: rgb(255,255,255);
+    background: linear-gradient(293deg, rgba(255,255,255,0) 55%, rgba(0,82,140,1) 63%);
+    opacity: 0.7;
+    z-index: 1;
+}
+
+.inner-shadow{
+    -webkit-box-shadow: inset 0px 0px 6px 4px rgba(210,212,217,1);
+    -moz-box-shadow: inset 0px 0px 6px 4px rgba(210,212,217,1);
+    box-shadow: inset 0px 0px 6px 4px rgba(210,212,217,1);
+}
+
+.bottom-border-radius{
+    -webkit-border-bottom-right-radius: 100px;
+    -webkit-border-bottom-left-radius: 100px;
+    -moz-border-radius-bottomright: 100px;
+    -moz-border-radius-bottomleft: 100px;
+    border-bottom-right-radius: 100px;
+    border-bottom-left-radius: 100px;
+}
+
+.button-icon fa-icon {
+    display: block;
+}

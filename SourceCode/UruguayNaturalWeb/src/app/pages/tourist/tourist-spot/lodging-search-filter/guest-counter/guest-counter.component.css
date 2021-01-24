@@ -1,0 +1,7 @@
+input:read-only {
+    background-color: white;
+    color: black;
+}
+input::placeholder{
+    color: black;
+}

@@ -1,0 +1,18 @@
+
+<header (mouseenter)="playVideo()" (mouseleave)="pauseVideo()">
+<div *ngIf="false" class="overlay"></div>
+<div *ngIf="true" class="overlay-gradient"></div>
+<video class="zoom" playsinline="playsinline"  muted="muted" loop="loop"  #videoPlayer>
+    <source src="{{video}}" type="video/mp4">
+</video>
+<div class="container h-100">
+    <div class="d-flex h-100 text-center align-items-end">
+        <div class="w-100 text-white pb-lg-5">
+            <img src="{{charArrayToPng(map)}}" alt="">
+            <h3 class="font-weight-bold text-white" [innerHTML]="region">
+
+            </h3>
+        </div>
+    </div>
+</div>
+</header>

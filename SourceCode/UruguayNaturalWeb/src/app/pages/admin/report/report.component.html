@@ -1,0 +1,166 @@
+<div class="mincont">
+  <div class="header bg-primary">
+    <div class="container-fluid pl-4 pt-5"> 
+      <div class="header-body">
+          <h1 class="text-white"> Reporte </h1>
+      </div>
+    </div>
+  </div>
+  <div class="container py-6">
+      <form role="form" class="p-5 shadow rounded-lg bg-white needs-validation" novalidate [formGroup]="reportForm" (ngSubmit)="onSubmit(reportForm.value)">
+          <h6 class="heading-small text-muted mb-4">Ingrese los datos para generar el reporte</h6>
+          <div class="row w-100">
+              <div class="col-10">
+                  <div class="row w-100">
+                      <div class="col-lg-6 w-100 pl-0">
+                          <div class="input-group">
+                          <select [(ngModel)]="selectedRegion"
+                                  (change)="selectRegion($event)"
+                                  formControlName="region"
+                                  type="text"
+                                  id="input-region"
+                                  [ngClass]="{'is-invalid': this.reportForm.controls.region.invalid && showErrors}"
+                                  class="form-control">
+                              <option [ngValue]="undefined || null" hidden disabled selected>Seleccione una región </option>
+                              <option *ngFor="let region of (regions$ | async)" [value]="region.id"> {{region.name}} </option>
+                          </select>
+                              <div class="invalid-feedback">
+                                  Campo requerido.
+                              </div>
+                          </div>
+                      </div>
+                      <div class="col-lg-6 w-100 pr-0">
+                          <div class="input-group">
+                              <select [(ngModel)]="selectedTouristSpot"
+                                  formControlName="touristSpot"
+                                  (ngModelChange)="selectTouristSpot($event)"
+                                  type="text"
+                                  id="input-tourisSpot"
+                                  class="form-control"
+                                  [ngClass]="{'is-invalid': this.reportForm.controls.touristSpot.invalid && showErrors}">
+                                  <option [ngValue]="undefined || null" hidden disabled selected>Seleccione un punto turistico </option>
+                                  <option *ngFor="let touristSpot of (touristSpots$ | async)" [ngValue]="touristSpot"> {{touristSpot.name}}</option>
+                              </select>
+                              <div class="invalid-feedback" style="display: block">
+                                <div class="text-danger" *ngIf="this.reportForm.controls.touristSpot.invalid && showErrors">
+                                    <div *ngIf="this.reportForm.controls.touristSpot.errors?.required" class="validation-error"> Campo requerido </div>
+                                    <div *ngFor="let error of this.reportForm.controls.touristSpot.errors?.apiErrors" class="validation-error">
+                                        {{error}}
+                                    </div>
+                                </div>
+                            </div>
+                          </div>
+
+                      </div>
+                  </div>
+                  <div class="row w-100 mt-2">
+                      <div class="form-group hidden ">
+                          <div class="input-group">
+                              <input name="datepicker"
+                                    class="form-control input-daterange datepicker opacity-0"
+                                    ngbDatepicker
+                                    #datepicker="ngbDatepicker"
+                                    [autoClose]="'outside'"
+                                    (dateSelect)="onDateSelection($event)"
+                                    [displayMonths]="2"
+                                    [dayTemplate]="t"
+                                    outsideDays="hidden"
+                                    [startDate]="calendar.getToday()"
+                                    tabindex="-1">
+                              <ng-template #t let-date let-focused="focused">
+                                  <span class="custom-day"
+                        [class.focused]="focused"
+                        [class.range]="isRange(date)"
+                        [class.range-start]="date && fromDate && date.day === fromDate.day && date.month === fromDate.month"
+                        [class.range-end]="date && toDate && date.day === toDate.day && date.month === toDate.month"
+                        [class.faded]="isHovered(date) || isInside(date)"
+                        (mouseenter)="hoveredDate = date"
+                        (mouseleave)="hoveredDate = null">
+                    {{ date.day }}
+                  </span>
+                              </ng-template>
+                          </div>
+                      </div>
+                      <!--        column with the two datepickers-->
+                          <div class="form-group w-100" [ngClass]="{'has-danger': !dateValid}" >
+                              <div class="row">
+                              <!--                check in datepicker-->
+                              <div class="col-lg-6">
+                                  <div class="input-group">
+                                      <div class="input-group-prepend ">
+                                          <button class="btn btn-primary" (click)="datepicker.toggle()" type="button">
+                                              <fa-icon [icon]="['fas', 'calendar-check']"></fa-icon>
+                                          </button>
+                                      </div>
+                                      <input #dpFromDate
+
+                                            [ngClass]="{'is-invalid': this.reportForm.controls.dateFrom.invalid && showErrors}"
+                                            [formControl]="reportForm.controls.dateFrom"
+                                            class="form-control pl-3" placeholder="Fecha inicial"
+                                            name="dpFromDate"
+                                            [value]="formatter.format(fromDate)"
+                                            (input)="fromDate = validateInput(fromDate, dpFromDate.value)">
+                                      <div class="invalid-feedback">
+                                          Campo requerido.
+                                      </div>
+                                      </div>
+                              </div>
+                              <!--                check out datepicker-->
+                              <div class="col-lg-6">
+                                  <div class="input-group">
+                                      <div class="input-group-prepend" >
+                                          <button class="btn btn-primary" (click)="datepicker.toggle()" type="button">
+                                              <fa-icon [icon]="['fas', 'calendar-times']"></fa-icon>
+                                          </button>
+                                      </div>
+                                      <input #dpToDate
+
+                                            [formControl]="reportForm.controls.dateTo"
+                                            [ngClass]="{'is-invalid': this.reportForm.controls.dateTo.invalid && showErrors}"
+                                            class="form-control pl-3" placeholder="Fecha final"
+                                            name="dpToDate"
+                                            [value]="formatter.format(toDate)"
+                                            (input)="toDate = validateInput(toDate, dpToDate.value)">
+                                      <div class="invalid-feedback">
+                                          Campo requerido.
+                                      </div>
+                                  </div>
+
+                                </div>
+                              </div>
+                          </div>
+                      </div>
+              </div>
+              <div class="col-2 pb-3">
+                  <button type="submit" class="btn btn-primary h-100"><fa-icon [icon]="['fas', 'chart-area']"></fa-icon> Generar reporte</button>
+              </div>
+          </div>
+      </form>
+      <div *ngIf="showEmpty" class="container rounded shadow bg-white mt-3 p-5">
+          <h2 class="text-center">No hay reportes para el rango seleccionado</h2>
+      </div>
+      <div *ngIf="reports.length > 0" class="container rounded shadow bg-white mt-3 p-3">
+          <h4>Reporte generado</h4>
+          <table  class="table table-striped">
+              <thead>
+              <tr>
+                  <th scope="col">ID</th>
+                  <th scope="col">Nombre</th>
+                  <th scope="col">Dirección</th>
+                  <th scope="col">Cantidad de reservas</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr *ngFor="let report of reports">
+                  <th scope="row">{{report.id}}</th>
+                  <td>
+                      {{ report.name }}
+                  </td>
+                  <td>{{ report.address}}</td>
+                  <td>{{ report.bookingCount}}</td>
+              </tr>
+              </tbody>
+          </table>
+      </div>
+  </div>
+</div>

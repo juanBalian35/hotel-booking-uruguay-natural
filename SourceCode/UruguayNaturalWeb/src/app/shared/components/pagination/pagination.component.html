@@ -1,0 +1,15 @@
+<nav aria-label="Page navigation example">
+    <ul class="pagination justify-content-center">
+        <li [ngClass]="{'disabled': page === 1}" class="page-item">
+            <a  class="page-link" (click)="previousPage()">
+                <fa-icon [icon]="['fas', 'angle-double-left']"></fa-icon>
+            </a>
+        </li>
+        <li class="page-item active"><a class="page-link">{{page}}</a></li>
+        <li class="page-item" [ngClass]="{'disabled': itemsLength < itemsPerPage}">
+            <a class="page-link" (click)="nextPage()" aria-label="Next">
+                <fa-icon [icon]="['fas', 'angle-double-right']"></fa-icon>
+            </a>
+        </li>
+    </ul>
+</nav>

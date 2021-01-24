@@ -1,0 +1,28 @@
+// Bootstrap carousel
+
+.carousel-control-prev:hover{
+  .carousel-control-next-icon{
+    transform: scale(1.4,1.4);
+  }
+  .carousel-control-prev-icon{
+    transform: scale(1.4,1.4);
+  }
+}
+.carousel-control-next:hover{
+  .carousel-control-next-icon{
+    transform: scale(1.4,1.4);
+  }
+  .carousel-control-prev-icon{
+    transform: scale(1.4,1.4);
+  }
+}
+
+.carousel-indicators li{
+  height: 7px;
+  opacity: 1;
+}
+.carousel-indicators .active{
+  background-color: $third;
+}
+
+

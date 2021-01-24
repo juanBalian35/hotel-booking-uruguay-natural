@@ -1,0 +1,10 @@
+.img-cropped {
+    object-fit: cover;
+    object-position: center center;
+    width: 100%;
+    height: 100%;
+}
+
+.carousel-control-prev{
+    color: green;
+}

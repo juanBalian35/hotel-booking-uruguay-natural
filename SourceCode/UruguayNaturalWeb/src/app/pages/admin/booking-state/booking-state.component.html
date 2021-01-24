@@ -1,0 +1,92 @@
+<div class="mincont my-0 py-0">
+    <div class="header bg-primary">
+        <div class="container-fluid pl-4 pt-5">
+          <div class="header-body">
+              <h1 class="text-white"> Estado de reserva </h1>
+          </div>
+        </div>
+    </div>
+    <div class="container py-6 w-100">
+        <div class="shadow p-5 outterForm">
+            <h6 class="heading-small text-muted mb-4">Cambiar estado de reserva</h6>
+            <form role="form" [formGroup]="stateForm" (ngSubmit)="onStateSubmit()">
+                <div class="row">
+                    <div class="col-lg-6">
+                        <input formControlName="bookingId"
+                            name="bookingId"
+                            id="bookinId"
+                            type="number"
+                            placeholder="Número de reserva"
+                            class="form-control form-control-alternative"
+                            [ngClass]="{'is-invalid': this.stateForm.controls.bookingId.invalid && showErrors}">
+                        <div class="invalid-feedback" style="display: block">
+                            <div class="text-danger" *ngIf="this.stateForm.controls.bookingId.invalid && showErrors">
+                                <div *ngIf="this.stateForm.controls.bookingId.errors?.required" class="validation-error"> Campo requerido </div>
+                                <div *ngFor="let error of this.stateForm.controls.bookingId.errors?.apiErrors" class="validation-error">
+                                    {{error}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 d-flex">
+                        <button class="col-lg-6 btn btn-primary mb-1 align-self-start" type="button" type="submit">Buscar</button>
+                    </div>
+                </div>
+            </form>
+            <form class="pt-5" [formGroup]="newStateForm"  *ngIf="stateInfo" (ngSubmit)="changeState()">
+                <h6 class="heading-small text-muted mb-4">Estado actual</h6>
+                <div class="row">
+                    <div class="col-lg-6">
+                        <label>Nombre</label>
+                        <input [value]="stateInfo.state" class="form-control form-control-alternative" disabled>
+                    </div>
+                    <div class="col-lg-6">
+                        <label>Descripcion</label>
+                        <textarea rows="4" class="form-control form-control-alternative" disabled>{{stateInfo.description}}</textarea>
+                    </div>
+                </div>
+                
+                <h6 class="heading-small text-muted mb-4">Nuevo estado</h6>
+                <div class="row">
+                    <div class="col-lg-6">
+                        <label>Nombre *</label>
+                        <select [(ngModel)]="nameModel" class="form-control form-control-alternative" formControlName="name">
+                            <option hidden disabled [ngValue]="null || undefined" selected>Ingrese nombre </option>
+                            <option ngValue="Creada">Creada</option>
+                            <option ngValue="Pendiente Pago">Pendiente Pago</option>
+                            <option ngValue="Aceptada">Aceptada</option>
+                            <option ngValue="Rechazada">Rechazada</option>
+                            <option ngValue="Expirada">Expirada</option>
+                        </select>
+                        <div class="invalid-feedback" style="display: block">
+                            <div class="text-danger" *ngIf="this.newStateForm.controls.name.invalid && showErrorsNew">
+                                <div *ngIf="this.newStateForm.controls.name.errors?.required" class="validation-error"> Campo requerido </div>
+                                <div *ngFor="let error of this.newStateForm.controls.name.errors?.apiErrors" class="validation-error">
+                                    {{error}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <label>Descripcion *</label>
+                        <textarea rows="4" class="form-control form-control-alternative" formControlName="description"></textarea>
+                        <div class="invalid-feedback" style="display: block">
+                            <div class="text-danger" *ngIf="this.newStateForm.controls.description.invalid && showErrorsNew">
+                                <div *ngIf="this.newStateForm.controls.description.errors?.required" class="validation-error"> Campo requerido </div>
+                                <div *ngFor="let error of this.newStateForm.controls.description.errors?.apiErrors" class="validation-error">
+                                    {{error}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row justify-content-center mt-5">
+                    <button class="btn btn-primary px-4" type="button" type="submit">Cambiar estado</button>
+                </div>
+                <div class="alert alert-success mt-4 col-lg-6 mx-auto" role="alert" *ngIf="showSuccess">
+                  Estado de reserva modificado correctamente
+                </div>
+            </form>
+        </div>
+    </div>
+  </div>

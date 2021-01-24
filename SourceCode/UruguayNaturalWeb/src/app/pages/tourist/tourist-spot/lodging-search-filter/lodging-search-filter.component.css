@@ -1,0 +1,28 @@
+.form-group.hidden {
+    width: 0;
+    margin: 0;
+    border: none;
+    padding: 0;
+}
+
+.menu-form {
+    width: 270px !important;
+    min-width: 240px !important;
+    position: absolute;
+    top: 0px;
+    left: 31% !important;
+    will-change: transform;
+    transform: translate(0, 43px)!important;
+}
+
+.opacity-0{
+    opacity: 0;
+}
+input:read-only {
+    background-color: white;
+    color: black;
+}
+input::placeholder{
+    color: black;
+}
+

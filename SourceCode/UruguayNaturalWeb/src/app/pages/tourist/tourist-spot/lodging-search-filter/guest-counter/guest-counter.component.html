@@ -1,0 +1,25 @@
+<div class="row d-flex align-items-center pl-4 pr-4">
+    <div class="col align-middle">
+        <h6 class="align-middle mb-0 heading text-primary">{{guestType}} <fa-icon class="text-muted small" *ngIf="guestType !=='Jubilados' " ngbTooltip="{{ageRange}}" [icon]="['fas', 'info-circle']"></fa-icon></h6>
+    </div>
+    <div class="col">
+        <div class="row d-flex align-items-center">
+            <div class="col">
+                <div class="input-group input-group-sm">
+                    <div class="input-group-prepend">
+                        <button [ngClass]="{'disabled': quantity===0}" (click)="decrementQuantity()"  class="btn btn-outline-primary" type="button" id="button-decrement">
+                            <fa-icon [icon]="['fas', 'minus']"></fa-icon>
+                        </button>
+                    </div>
+                    <input readonly type="text" class="form-control text-center"  [placeholder]="quantity" aria-label="number" aria-describedby="button-addon1">
+                    <div class="input-group-append">
+                        <button  (click)="incrementQuantity()" class="btn btn-outline-primary" type="button" id="button-increment">
+                            <fa-icon [icon]="['fas', 'plus']"></fa-icon>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

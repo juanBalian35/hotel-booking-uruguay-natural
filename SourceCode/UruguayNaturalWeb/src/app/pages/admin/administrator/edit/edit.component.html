@@ -1,0 +1,69 @@
+
+<form role="form" class="p-5 shadow" [formGroup]="adminForm" (ngSubmit)="onSubmit(adminForm.value)">
+    <h6 class="heading-small text-muted mb-4">Modificar administrador</h6>
+    
+    <div class="row mt-4">
+        <div class="col-lg-6">
+            <select [(ngModel)]="selectedAdministrator" (ngModelChange)="selectAdministrator($event)" formControlName="emailSelect" type="text" id="input-lodging" class="form-control form-control-alternative">
+                <option [ngValue]="undefined || null" hidden disabled selected>Ingrese administrador </option>
+                <option *ngFor="let administrator of (administrators$ | async)" [ngValue]="administrator"> {{administrator.email}} </option>
+            </select>
+        </div>
+    </div>
+
+    <div class="pt-4" *ngIf="selectedAdministrator">
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="form-group">
+                    <label class="form-control-label" for="input-name">Email *</label>
+                    <input type="text" id="input-name" class="form-control form-control-alternative" formControlName="email" placeholder="Email">
+                    <div class="error-wrapper">
+                        <div class="text-danger" *ngIf="this.adminForm.controls.email.invalid && showErrors">
+                            <div *ngIf="this.adminForm.controls.email.errors?.required" class="validation-error">Campo requerido</div>
+                            <div *ngIf="this.adminForm.controls.email.errors?.email" class="validation-error">Email no es valido</div>
+                            <div *ngFor="let error of this.adminForm.controls.email.errors?.apiErrors" class="validation-error">
+                                {{error}}
+                            </div>
+                        </div>
+                    </div>  
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="form-group">
+                    <label class="form-control-label" for="input-name">Nombre *</label>
+                    <input type="email" id="input-name" class="form-control form-control-alternative" formControlName="name" placeholder="Nombre">
+                    <div class="error-wrapper">
+                        <div class="text-danger" *ngIf="this.adminForm.controls.name.invalid && showErrors">
+                            <div *ngIf="this.adminForm.controls.name.errors?.required" class="validation-error">Campo requerido</div>
+                            <div *ngFor="let error of this.adminForm.controls.name.errors?.apiErrors" class="validation-error">
+                                {{error}}
+                            </div>
+                        </div>
+                    </div> 
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="form-group">
+                    <label class="form-control-label" for="input-password">Contraseña *</label>
+                    <input type="password" id="input-password" class="form-control form-control-alternative" formControlName="password" placeholder="Contraseña">
+                    <div class="error-wrapper">
+                        <div class="text-danger" *ngIf="this.adminForm.controls.password.invalid && showErrors">
+                            <div *ngIf="this.adminForm.controls.password.errors?.required" class="validation-error">Campo requerido</div>
+                            <div *ngFor="let error of this.adminForm.controls.password.errors?.apiErrors" class="validation-error">
+                                {{error}}
+                            </div>
+                        </div>
+                    </div> 
+                </div>
+            </div>
+        </div>
+        <div class="row justify-content-center mt-4">
+            <button class="btn btn-primary px-4" type="button" type="submit">Modificar administrador</button>
+        </div>
+        <div class="alert alert-success mt-4 col-lg-6 mx-auto" role="alert" *ngIf="showSuccess">
+          Administrador modificado correctamente
+        </div>
+    </div>
+</form>

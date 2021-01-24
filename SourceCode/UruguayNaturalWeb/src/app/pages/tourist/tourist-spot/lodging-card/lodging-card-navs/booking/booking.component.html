@@ -1,0 +1,215 @@
+<h1 class="heading-title text-primary text-center">Realice una reserva para este hospedaje</h1>
+<div class="row">
+    <form class="bg-secondary p-5 rounded shadow needs-validation" novalidate role="form" [formGroup]="bookingForm" (ngSubmit)="openConfirmationModal(confirmation)">
+        <h3>Ingrese sus datos para realizar una reserva</h3>
+        <div class="row pt-3">
+            <div class="col-md-3">
+                <div class="form-group"  [ngClass]="{'has-danger': this.bookingForm.controls.name.invalid && showErrors}">
+                    <label for="name">Nombre *</label>
+                    <div class="input-group mb-4">
+                        <input formControlName="name"
+                                name="name"
+                               id="name"
+                               type="text"
+                               placeholder="Nombre"
+                               class="form-control"
+                               [ngClass]="{'is-invalid': this.bookingForm.controls.name.invalid && showErrors}">
+                        <div class="invalid-feedback">
+                            Campo requerido.
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group" [ngClass]="{'has-danger': this.bookingForm.controls.lastname.invalid && showErrors}">
+                    <label for="lastname">Apellido *</label>
+                    <div class="input-group  mb-4">
+                        <input formControlName="lastname"
+                               name="lastname"
+                               id="lastname"
+                               type="text"
+                               placeholder="Apellido"
+                               class="form-control"
+                               [ngClass]="{'is-invalid': this.bookingForm.controls.lastname.invalid && showErrors}">
+                        <div class="invalid-feedback">
+                            Campo requerido.
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group " [ngClass]="{'has-danger': this.bookingForm.controls.email.invalid && showErrors}">
+                    <label for="email">Email *</label>
+                    <div class="input-group mb-4">
+                        <input formControlName="email"
+                               name="email"
+                               id="email"
+                               type="email"
+                               class="form-control"
+                               placeholder="nombre@ejemplo.com"
+                               [ngClass]="{'is-invalid': this.bookingForm.controls.email.invalid && showErrors}">
+                        <div *ngIf="this.bookingForm.controls.email.errors?.required" class="invalid-feedback">Campo requerido</div>
+                        <div *ngIf="this.bookingForm.controls.email.errors?.pattern" class="invalid-feedback">Email inválido</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <h3>Detalles de la reserva</h3>
+        <div class="row ">
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label for="adults">Adultos</label>
+                    <div class="input-group  mb-4">
+                        <div class="input-group-prepend ">
+                            <span class="input-group-text disabled-icon"><fa-icon [icon]="['fas', 'male']"></fa-icon><fa-icon [icon]="['fas', 'female']"></fa-icon></span>
+                        </div>
+                        <input id="adults" type="text" [placeholder]="bookingDetails.adults" class="form-control pl-2" disabled="">
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label for="babies">Bebés</label>
+                    <div class="input-group   mb-4">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text disabled-icon"><fa-icon [icon]="['fas', 'baby']"></fa-icon></span>
+                        </div>
+                        <input id="babies" type="text" [placeholder]="bookingDetails.babies" class="form-control  pl-2" disabled="">
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label for="children">Niños</label>
+                    <div class="input-group   mb-4">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text disabled-icon"><fa-icon [icon]="['fas', 'child']"></fa-icon></span>
+                        </div>
+                        <input id="children" type="text" [placeholder]="bookingDetails.children" class="form-control  pl-2" disabled="">
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label for="retiree">Jubilados</label>
+                    <div class="input-group   mb-4">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text disabled-icon"><fa-icon [icon]="['fas', 'id-card']"></fa-icon></span>
+                        </div>
+                        <input id="retiree" type="text" [placeholder]="bookingDetails.retirees" class="form-control  pl-2" disabled="">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row ">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="fromDate">Fecha Check in</label>
+                    <div class="input-group   mb-4">
+                        <div class="input-group-prepend ">
+                            <span class="input-group-text disabled-icon"><fa-icon [icon]="['fas', 'calendar-check']"></fa-icon></span>
+                        </div>
+                        <input id="fromDate" type="text" [placeholder]="bookingDetails.checkIn | date:'fullDate'" class="form-control  pl-2" disabled="">
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="toDate">Fecha Check out</label>
+                    <div class="input-group   mb-4">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text disabled-icon"><fa-icon [icon]="['fas', 'calendar-times']"></fa-icon></span>
+                        </div>
+                        <input id="toDate" type="text" [placeholder]="bookingDetails.checkOut | date:'fullDate' " class="form-control  pl-2" disabled="">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            <button type="submit" class="btn btn-primary"><fa-icon [icon]="['fas','check']"></fa-icon> Confirmar reserva</button>
+        </div>
+    </form>
+
+    <ng-template #confirmation let-modal>
+        <div class="modal-content modal-lg">
+            <div class="modal-header">
+                <h4 class="modal-title" id="modal-basic-title">Confirmar reserva</h4>
+                <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <h4>Verifique sus datos son correctos antes de realizar la reserva:</h4>
+                <dl class="row">
+                    <dt class="col-sm-4">Nombre completo</dt>
+                    <dd class="col-sm-8">{{this.bookingForm.controls.name.value}} {{this.bookingForm.controls.lastname.value}}</dd>
+
+                    <dt class="col-sm-4">Email</dt>
+                    <dd class="col-sm-8">
+                        {{this.bookingForm.controls.email.value}}
+                    </dd>
+
+                    <dt class="col-sm-4">Huéspedes</dt>
+                    <dd class="col-sm-8">
+                        <ul class="list-inline no-gutters mt-0 mb-0">
+                            <li *ngIf="bookingDetails.adults > 0"  class="list-inline-item">{{bookingDetails.adults}} Adultos</li>
+                            <li *ngIf="bookingDetails.children > 0" class="list-inline-item">- {{bookingDetails.children}} Niños</li>
+                            <li *ngIf="bookingDetails.babies > 0"  class="list-inline-item">- {{bookingDetails.babies}} Bebés</li>
+                            <li *ngIf="bookingDetails.retirees > 0"  class="list-inline-item">- {{bookingDetails.retirees}} Jubilados</li>
+                        </ul>
+                    </dd>
+
+                    <dt class="col-sm-4">Check in</dt>
+                    <dd class="col-sm-8">{{bookingDetails.checkIn | date:'fullDate'}}</dd>
+
+                    <dt class="col-sm-4">Check out</dt>
+                    <dd class="col-sm-8">{{bookingDetails.checkOut | date:'fullDate'}}</dd>
+                </dl>
+                <h3 class="text-right text-primary">Precio total: UYU ${{lodging.totalPrice}}</h3>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-danger" (click)="modal.dismiss('Cancel')">Cancelar</button>
+                <button type="button" class="btn btn-success" (click)="modal.close('Confirmation')">Confirmar</button>
+            </div>
+        </div>
+    </ng-template>
+
+    <ng-template #message let-modal>
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title text-success" id="modal-message"><fa-icon [icon]="['fas', 'check']"></fa-icon>¡Reserva confirmada!</h4>
+                <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <h1 class="text-primary text-center"><fa-icon [icon]="['fas', 'concierge-bell']"></fa-icon></h1>
+                <h4 class="text-primary text-center">{{confirmationMessage.confirmationMessage}}</h4>
+                <div class="row justify-content-start">
+                    <div class="col-auto heading">
+                        Número de reserva:
+                    </div>
+                    <div class="col font-weight-bold">
+                        {{confirmationMessage.id}}
+                    </div>
+                </div>
+                <div class="row justify-content-start">
+                    <div class="col-auto heading">
+                        Teléfono de contacto:
+                    </div>
+                    <div class="col font-weight-bold">
+                        {{confirmationMessage.phone}}
+                    </div>
+                </div>
+                <p class="text-muted"><fa-icon [icon]="['fas', 'info-circle']"> </fa-icon> Le sugerimos que guarde estos datos para luego poder realizar una review al hospedaje</p>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" (click)="modal.close('Ok')">Ok, salir</button>
+            </div>
+        </div>
+    </ng-template>
+
+    <app-http-loading-spinner filterBy='bookings'></app-http-loading-spinner>
+</div>
+

@@ -1,0 +1,14 @@
+.img-cropped {
+    object-fit: cover;
+    object-position: center center;
+    width: 100%;
+    height: 100%;
+}
+
+
+.big-circle{
+    width: 3rem;
+    height: 3rem;
+    font-size: 1.3rem;
+}
+

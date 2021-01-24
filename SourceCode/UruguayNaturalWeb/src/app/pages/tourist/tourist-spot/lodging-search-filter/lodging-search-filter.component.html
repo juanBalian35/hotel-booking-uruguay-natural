@@ -1,0 +1,119 @@
+<form class="form-inline ml-5 mr-5 mt-2 mb-2">
+    <div class="row w-100">
+<!--        hidden input datepicker-->
+        <div class="form-group hidden ">
+            <div class="input-group">
+                <input name="datepicker"
+                       class="form-control input-daterange datepicker opacity-0"
+                       ngbDatepicker
+                       #datepicker="ngbDatepicker"
+                       [autoClose]="'outside'"
+                       (dateSelect)="onDateSelection($event)"
+                       [displayMonths]="2"
+                       [dayTemplate]="t"
+                       outsideDays="hidden"
+                       [minDate]="calendar.getToday()"
+                       [startDate]="calendar.getToday()"
+                       tabindex="-1">
+                <ng-template #t let-date let-focused="focused">
+        <span class="custom-day"
+              [class.focused]="focused"
+              [class.range]="isRange(date)"
+              [class.range-start]="date && fromDate && date.day === fromDate.day && date.month === fromDate.month"
+              [class.range-end]="date && toDate && date.day === toDate.day && date.month === toDate.month"
+              [class.faded]="isHovered(date) || isInside(date)"
+              (mouseenter)="hoveredDate = date"
+              (mouseleave)="hoveredDate = null">
+          {{ date.day }}
+        </span>
+                </ng-template>
+            </div>
+        </div>
+<!--        column with the two datepickers-->
+        <div class="col-12 col-lg-6 col-md-12 col-sm-12">
+            <div class="form-group " [ngClass]="{'has-danger': !dateValid}" >
+<!--                check in datepicker-->
+                <div class="col">
+                    <div class="input-group">
+                        <div class="input-group-prepend "[ngClass]="{'is-invalid': !dateValid}">
+                            <button class="btn btn-primary" (click)="datepicker.toggle()" type="button">
+                                <fa-icon [icon]="['fas', 'calendar-check']"></fa-icon>
+                            </button>
+                        </div>
+                        <input #dpFromDate
+                               readonly
+                               [ngClass]="{'is-invalid': !dateValid}"
+                               class="form-control pl-3" placeholder="Check in"
+                               name="dpFromDate"
+                               [value]="formatter.format(fromDate)"
+                               (input)="fromDate = validateInput(fromDate, dpFromDate.value)">
+
+                    </div>
+                </div>
+<!--                check out datepicker-->
+                <div class="col">
+                    <div class="input-group">
+                        <div class="input-group-prepend" [ngClass]="{'is-invalid': !dateValid}">
+                            <button class="btn btn-primary" (click)="datepicker.toggle()" type="button">
+                                <fa-icon [icon]="['fas', 'calendar-times']"></fa-icon>
+                            </button>
+                        </div>
+                        <input #dpToDate
+                               readonly
+                               [ngClass]="{'is-invalid': !dateValid}"
+                               class="form-control pl-3" placeholder="Check out"
+                               name="dpToDate"
+                               [value]="formatter.format(toDate)"
+                               (input)="toDate = validateInput(toDate, dpToDate.value)">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+<!--        dropdown form, with guest counters-->
+        <div class="col-12 col-lg-4 col-md-12 col-sm-12">
+            <div class="dropdown-form" ngbDropdown class="w-100" placement="bottom"  role="group">
+                <div class="input-group mb-3"  [ngClass]="{'has-danger': !guestsValid}">
+                    <div class="input-group-prepend">
+                        <label class="input-group-text bg-primary text-white">
+                            <fa-icon [icon]="['fas', 'bed']"></fa-icon>
+                        </label>
+                    </div>
+                    <input readonly [ngClass]="{'is-invalid': !guestsValid}" type="text" class="form-control text-center" [placeholder]="getPlaceHolderMessage()" aria-label="number" aria-describedby="guests">
+                    <div class="input-group-append">
+                        <button class="btn btn-primary dropdown-toggle-split" ngbDropdownToggle>
+                            <fa-icon [icon]="['fas', 'sort']"></fa-icon>
+                        </button>
+                    </div>
+                </div>
+                <div ngbDropdownMenu aria-labelledby="dropdownForm1" class="menu-form">
+                    <form>
+                        <app-guest-counter guestType="Adultos" ageRange="13 años o más" [(quantity)]="adultsQuantity"></app-guest-counter>
+                        <div class="dropdown-divider no-gutters"></div>
+                        <app-guest-counter guestType="Niños" ageRange="De 2 a 12 años" [(quantity)]="childrenQuantity"></app-guest-counter>
+                        <div class="dropdown-divider no-gutters"></div>
+                        <app-guest-counter guestType="Bebés" ageRange="Menos de 2 años" [(quantity)]="babiesQuantity"></app-guest-counter>
+                        <div class="dropdown-divider no-gutters"></div>
+                        <app-guest-counter guestType="Jubilados" [(quantity)]="retireeQuantity"></app-guest-counter>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+<!--        submit button-->
+        <div class="col-lg-2 col-sm-12 col-12 col-md-12">
+            <button (click)="searchLodgings()" type="submit" class="btn btn-outline-primary w-100">
+                <fa-icon [icon]="['fas', 'search']"></fa-icon>
+                Buscar </button>
+
+        </div>
+        <div class="text-danger ml-4">
+            <p><small>{{errorMessage}}</small></p>
+        </div>
+    </div>
+
+    <p class="text-muted small ml-3">
+        <fa-icon [icon]="['fas', 'info-circle']"> </fa-icon> Ingrese los datos de Check in y Check out deseados, y la cantidad de huéspedes para obtener los hoteles disponibles en este punto turístico
+    </p>
+</form>
+

@@ -1,0 +1,11 @@
+<nav id="navbar-main" class="navbar navbar-main navbar-expand-lg navbar-transparent navbar-light headroom headroom--top headroom--pinned">
+  <div class="container no-gutters">
+    <a class="navbar-brand pl-lg-5" [routerLink]="['']">
+      <img style="height: 50px; margin-top: -5px;" src="../../../../assets/img/uruguayNatural/logo-mintur.png">
+    </a>
+    <button class="navbar-toggler" type="button" (click)="isCollapsed = !isCollapsed"
+          [attr.aria-expanded]="!isCollapsed" aria-controls="navbar_global">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+  </div>
+</nav>

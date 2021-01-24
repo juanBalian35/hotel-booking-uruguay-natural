@@ -1,0 +1,29 @@
+<div class="mincont my-0 py-0">
+    <div class="header bg-primary">
+        <div class="container-fluid pl-4 pt-5">
+          <div class="header-body">
+              <h1 class="text-white"> Administrador </h1>
+              <div class="list-group list-group-horizontal" id="list-tab" role="tablist">
+                <a routerLink="/admin/administrator/create" 
+                  [routerLinkActive]="['']" [ngClass]="rla1.isActive?'active bg-secondary':''" #rla1="routerLinkActive"[routerLinkActiveOptions]="{exact: true}" 
+                  class="list-group-item list-group-item-action text-center" data-toggle="list" role="tab">
+                  Agregar
+                </a>
+                <a routerLink="/admin/administrator/edit" 
+                  [routerLinkActive]="['']" [ngClass]="rla2.isActive?'active bg-secondary':''" #rla2="routerLinkActive" [routerLinkActiveOptions]="{exact: true}" 
+                  id="list-center" class="list-group-item list-group-item-action text-center" data-toggle="list" role="tab">
+                  Modificar
+                </a>
+                <a routerLink="/admin/administrator/delete" 
+                  [routerLinkActive]="['']" [ngClass]="rla3.isActive?'active bg-secondary':''" #rla3="routerLinkActive" [routerLinkActiveOptions]="{exact: true}" 
+                  class="list-group-item list-group-item-action text-center" data-toggle="list" role="tab">
+                  Borrar
+                </a>
+              </div>
+          </div>
+        </div>
+    </div>
+    <div class="container py-6">
+      <router-outlet></router-outlet>
+    </div>
+  </div>

@@ -1,0 +1,118 @@
+<h1 class="heading-title text-primary text-center">Realice una reseña de hospedaje</h1>
+<div class="row w-100">
+    <form class="bg-secondary p-5 rounded shadow needs-validation w-100" novalidate role="form" [formGroup]="reviewForm" (ngSubmit)="openMessageModal(message)">
+        <div class="row pt-3 ">
+            <div class="col-md-3">
+                <div class="form-group"  [ngClass]="{'has-danger': this.reviewForm.controls.bookingId.invalid && showErrors}">
+                    <label for="bookinId">Número de reserva *</label>
+                    <div class="input-group mb-4">
+                        <input formControlName="bookingId"
+                               name="bookingId"
+                               id="bookinId"
+                               type="number"
+                               placeholder="Número de reserva"
+                               class="form-control"
+                               [ngClass]="{'is-invalid': this.reviewForm.controls.bookingId.invalid && showErrors}">
+                        <div class="invalid-feedback" style="display: block">
+                            <div class="text-danger" *ngIf="this.reviewForm.controls.bookingId.invalid && showErrors">
+                                <div *ngIf="this.reviewForm.controls.bookingId.errors?.required" class="validation-error">Campo requerido</div>
+                                <div *ngFor="let error of this.reviewForm.controls.bookingId.errors?.apiErrors" class="validation-error">
+                                    {{error}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-5">
+                <div class="form-group">
+                    <label for="rating">Valoración *</label>
+                    <div class="row no-gutters">
+                        <div class="col">
+                            <div class="input-group">
+                                <ng-template #t let-fill="fill">
+                                    <h2 class="star" [class.full-heart]="fill === 100" style="margin-left: 2px">
+                                        <h2 class="half-heart" [style.width.%]="fill"><fa-icon [icon]="['fas', 'heart']"></fa-icon></h2><fa-icon [icon]="['fas', 'heart']"></fa-icon>
+                                    </h2>
+                                </ng-template>
+                                <ngb-rating id="rating" [(rate)]="rate" [starTemplate]="t"  [max]="5" (hover)="hovered=$event" (leave)="hovered=0"></ngb-rating>
+                            </div>
+                        </div>
+                    <div class="col d-flex align-items-center">
+                        <h6 *ngIf="hovered === 0" [ngSwitch]="">
+                            <span *ngSwitchCase="1" class="text-danger"><b>1<small><b>/5</b></small></b> - Muy malo</span>
+                            <span *ngSwitchCase="2" class="text-danger" ><b>2<small><b>/5</b></small></b> - Malo</span>
+                            <span *ngSwitchCase="3" class="text-warning"><b>3<small><b>/5</b></small></b> - Medio</span>
+                            <span *ngSwitchCase="4" class="text-success"><b>4<small><b>/5</b></small></b> - Bueno</span>
+                            <span *ngSwitchCase="5" class="text-success"><b>5<small><b>/5</b></small></b> - Excelente</span>
+                        </h6>
+                        <h6 *ngIf="hovered !== 0" [ngSwitch]="hovered">
+                            <span *ngSwitchCase="1" class="text-danger"><b>1<small><b>/5</b></small></b> - Muy malo</span>
+                            <span *ngSwitchCase="2" class="text-danger" ><b>2<small><b>/5</b></small></b> - Malo</span>
+                            <span *ngSwitchCase="3" class="text-warning"><b>3<small><b>/5</b></small></b> - Medio</span>
+                            <span *ngSwitchCase="4" class="text-success"><b>4<small><b>/5</b></small></b> - Bueno</span>
+                            <span *ngSwitchCase="5" class="text-success"><b>5<small><b>/5</b></small></b> - Excelente</span>
+                        </h6>
+                    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group"  [ngClass]="{'has-danger': this.reviewForm.controls.commentary.invalid && showErrors}">
+                    <label for="bookinId">Comentario *</label>
+                    <div class="input-group mb-4">
+                        <textarea formControlName="commentary"
+                               name="commentary"
+                               id="commentary"
+                               type="text"
+                               placeholder="Ingrese su comentario..."
+                               class="form-control"
+                                  [ngClass]="{'is-invalid': this.reviewForm.controls.commentary.invalid && showErrors}"></textarea>
+                        <div class="invalid-feedback">
+                            Campo requerido.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            <button type="submit" class="btn btn-primary">Enviar reseña <fa-icon [icon]="['fas', 'paper-plane']"></fa-icon> </button>
+        </div>
+    </form>
+    <ng-template #message let-modal>
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title text-success" id="modal-message"><fa-icon [icon]="['fas', 'check']"></fa-icon> Su comentario ha sido enviado!</h4>
+                <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <h1 class="text-primary text-center"><fa-icon [icon]="['fas', 'envelope-open-text']"></fa-icon></h1>
+                <h4 class="text-primary text-center"> Gracias por enviar tu comentario {{confirmationMessage.name}}</h4>
+                <div class="row justify-content-start">
+                    <div class="col-auto heading">
+                        Valoración:
+                    </div>
+                    <div class="col font-weight-bold">
+                        {{confirmationMessage.rating}}
+                    </div>
+                </div>
+                <div class="row justify-content-start">
+                    <div class="col-auto heading">
+                        Comentario:
+                    </div>
+                    <div class="col font-weight-bold">
+                        {{confirmationMessage.commentary}}
+                    </div>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" (click)="modal.close('Ok')">Ok, salir</button>
+            </div>
+        </div>
+    </ng-template>
+</div>

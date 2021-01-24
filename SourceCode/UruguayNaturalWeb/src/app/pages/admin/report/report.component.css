@@ -1,0 +1,24 @@
+.form-group.hidden {
+    width: 0;
+    margin: 0;
+    border: none;
+    padding: 0;
+}
+
+.menu-form {
+    width: 270px !important;
+    min-width: 240px !important;
+    position: absolute;
+    top: 0px;
+    left: 31% !important;
+    will-change: transform;
+    transform: translate(0, 43px)!important;
+}
+input:read-only {
+    background-color: white;
+
+}
+
+.mincont{
+    min-height: 98.3vh;
+}

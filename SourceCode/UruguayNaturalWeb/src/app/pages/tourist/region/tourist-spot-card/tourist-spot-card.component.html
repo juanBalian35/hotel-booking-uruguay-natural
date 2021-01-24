@@ -1,0 +1,15 @@
+<div class="card shadow--hover card-scale--hover shadow-sm h-100 align-self-center">
+    <img [src]="charArrayToPng(touristspot.imageData)" class="card-img-top img-fluid">
+    <div class="card-body flex-fill">
+
+        <h4 class="text-primary">{{touristspot.name}}</h4>
+
+        <div>
+            <a *ngFor="let cat of touristspot.categories"  [ngClass]="{'badge-success': isCategoryActive(cat)}" class="badge badge-pill badge-third not-stretched mt-1 d-none d-lg-inline">
+                <fa-icon ngbTooltip="{{cat.name}}" [icon]="['fas', findIconCategory(cat)]"></fa-icon>
+            </a>
+        </div>
+
+        <a [routerLink]="'/touristspot/'+touristspot.id" class="stretched-link"></a>
+    </div>
+</div>
